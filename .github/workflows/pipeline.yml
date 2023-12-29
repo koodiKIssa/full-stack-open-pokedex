@@ -32,6 +32,6 @@ jobs:
         uses: Bounceapp/render-action@0.8.0
         with:
           render-token: ${{ secrets.RENDER_API_KEY }}
-          service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          service-id: srv-${{ secrets.RENDER_SERVICE_ID }}
       
             
