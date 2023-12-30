@@ -34,5 +34,3 @@ jobs:
           render-token: ${{ secrets.RENDER_API_KEY }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           service-id: ${{ secrets.RENDER_SERVICE_ID }}
-      
-            
