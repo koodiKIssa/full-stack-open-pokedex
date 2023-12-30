@@ -14,10 +14,6 @@ jobs:
     runs-on: ubuntu-20.04    
     steps:      
       - uses: actions/checkout@v3
-      - name: commit messages
-        env:
-          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-        run: echo "$COMMIT_MESSAGES"
       - uses: actions/setup-node@v3        
         with:
           node-version: '16'
@@ -35,7 +31,7 @@ jobs:
           command: npm run test:e2e
           start: npm run start-prod
           wait-on: http://localhost:5000
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip' )}}
       - name: Deploy to production
         uses: johnbeynon/render-deploy-action@v0.0.8
         with:
@@ -47,7 +43,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip' )}}
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.64.0
         env:
