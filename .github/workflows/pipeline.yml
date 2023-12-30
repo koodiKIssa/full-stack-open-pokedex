@@ -39,10 +39,9 @@ jobs:
           api-key: ${{ secrets.RENDER_API_KEY }}
           wait-for-success: true
   tag_release:
-    
     runs-on: ubuntu-20.04
     steps:
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.64.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+     - name: Bump version and push tag
+       uses: anothrNick/github-tag-action@1.64.0
+       env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
