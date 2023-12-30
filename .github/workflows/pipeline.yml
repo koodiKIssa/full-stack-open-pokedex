@@ -14,8 +14,6 @@ jobs:
     runs-on: ubuntu-20.04    
     steps:      
       - uses: actions/checkout@v3
-        env:
-          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
       - uses: actions/setup-node@v3        
         with:
           node-version: '16'
@@ -34,6 +32,8 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:5000
       - name: commit messages
+        env:
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         if: |
           github.event_name == 'push'
             && !contains(env.COMMIT_MESSAGES, '#skip')
