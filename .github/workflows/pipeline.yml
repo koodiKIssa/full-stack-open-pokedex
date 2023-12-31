@@ -47,7 +47,7 @@ jobs:
         if: success()
         with:
           text: A new version of pokedex deployed 
-          description: to https://full-stack-open-pokedex-wbb6.onrender.com/ by ${{ toJson(github.event.commits.*.author.username) }}
+          description: to https://full-stack-open-pokedex-wbb6.onrender.com/ by ${{ github.event.commits[][author][username]) }}
           severity: info
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: Deployment Failure
@@ -56,7 +56,7 @@ jobs:
         with:
           text: Build failed
           severity: error
-          description: commit ${{ toJson(github.event.commits.*.url) }} broke the build
+          description: commit ${{ github.event.[commits][url] }} broke the build
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   tag_release:
     needs: [simple_deployment_pipeline]
