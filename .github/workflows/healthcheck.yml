@@ -1,0 +1,20 @@
+name: Healtcheck pipeline
+
+on:
+  push:
+    branches:
+      - master
+      # note that your "main" branch might be called main instead of master.
+  schedule:
+    - cron: '* * * * *'
+    
+jobs: 
+  healtcheck_routine:    
+    runs-on: ubuntu-20.04    
+    steps:      
+      - uses: actions/checkout@v3
+      - name: Check the deployed service URL
+        uses: jtalk/url-health-check-action@v3
+        with:
+        # Check the following URLs one by one sequentially
+          url: https://full-stack-open-pokedex-wbb6.onrender.com/health
