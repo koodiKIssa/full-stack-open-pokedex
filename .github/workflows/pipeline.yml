@@ -43,11 +43,13 @@ jobs:
           api-key: ${{ secrets.RENDER_API_KEY }}
           wait-for-success: true
       - name: Deployment Success
+        env:
+          COMMITER: ${{ toJson(github.event.commits.*.author) }}
         uses: rjstone/discord-webhook-notify@v1
         if: success()
         with:
           text: A new version of pokedex deployed 
-          description: to https://full-stack-open-pokedex-wbb6.onrender.com/ by ${{ github.event.commits.*.author.username }}
+          description: to https://full-stack-open-pokedex-wbb6.onrender.com/ by ${{env.COMMITER.name}}
           severity: info
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: Deployment Failure
