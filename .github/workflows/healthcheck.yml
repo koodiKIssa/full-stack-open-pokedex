@@ -1,12 +1,8 @@
 name: Healtcheck pipeline
 
 on:
-  push:
-    branches:
-      - master
-      # note that your "main" branch might be called main instead of master.
   schedule:
-    - cron: '* * * * *'
+    - cron: '0 0 * * 0'
     
 jobs: 
   healtcheck_routine:    
